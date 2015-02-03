@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maukka76/MeanStack.git"
+    "url": "https://github.com/jarnhola/MeanStack.git"
   },
   "keywords": [
     "Mean"
@@ -28,7 +28,7 @@
   "author": "Markus Veijola",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/maukka76/MeanStack/issues"
+    "url": "https://github.com/jarnhola/MeanStack/issues"
   },
-  "homepage": "https://github.com/maukka76/MeanStack"
+  "homepage": "https://github.com/jarnhola/MeanStack"
 }
