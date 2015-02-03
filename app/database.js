@@ -1,0 +1,49 @@
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
+
+mongoose.connect('mongodb://localhost/mean_stack',function(err,success){
+    
+    if(err){
+        console.log(err + " check that your mongodb is running.");
+    }
+    else{
+        console.log('We are connected to database');
+    }
+});
+
+//==============================================
+
+var Schema = mongoose.Schema;
+
+var user = new Schema({
+    name:{type:String,unique:true},
+    password:String,
+    email:String
+});
+
+//==============================================
+
+var message = new Schema({
+   ownae:String,
+    message:[{
+        subject:String,
+        positive_votes:Number,
+        negative_votes:Number,
+        timestamp:Date
+    }]
+});
+
+//==============================================
+
+user.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+user.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
+
+var User = mongoose.model('User',user);
+var Message = mongoose.model('Message',message);
+
+module.exports.User = User;
