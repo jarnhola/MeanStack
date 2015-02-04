@@ -1,5 +1,8 @@
-.main{
-    
+.topic {
+    backgroundcolor: lightgrey;   
+}
+
+.main{    
     width: 780px;
     margin: 0 auto;
     margin-top: 20px;

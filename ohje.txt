@@ -1,0 +1,6 @@
+1. uusi html tiedosto
+2. lisää angular router
+3. lisää trigger joka vaihtaa sivua
+4. lisää näkymölle oma kontrolleri
+5. lisää kontrollerille factory
+6. muista ladata controller ja factory index.html:ssä

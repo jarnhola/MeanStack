@@ -8,7 +8,13 @@ router.post('/login', passport.authenticate('local-login'),function(req,res){
 });
 
 router.post('/register',function(req,res){
+    
     req.queries.registerUser(req,res);
+});
+
+router.get('/', function(req,res){
+    
+    req.queries.getMessagesForUser(req,res);
 });
 
  router.get('/logout', function(req, res) {

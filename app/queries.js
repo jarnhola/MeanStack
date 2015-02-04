@@ -27,8 +27,24 @@ module.exports.saveMessage = function(data,req){
         message.subject = data.subject;
         message.text = data.text;
         message.timestamp = data.timestamp;
+        
         message.save();
         user.messages.push(message);
         user.save();
+    });
+}
+
+module.exports.getMessagesForUser = function(req,res){
+
+    var options = { 
+        path: 'messages', 
+        options: {sort:{'_id':-1},limit:5}
+    }
+    
+    var query = User.find({name:req.session.user}).populate(options);
+    
+    query.exec(function(err,data){
+        console.log(data);
+        res.send({messages:data}); 
     });
 }

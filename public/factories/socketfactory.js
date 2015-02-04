@@ -1,10 +1,15 @@
-module.factory('SocketFactory',function(){
+module.factory('SocketFactory',function($resource){
     
     var factory={};
     //Create client socket
      var socket = io();
     
     factory.notify;
+    
+    factory.getMessagesForUser = function(){
+        
+        return $resource('/app').get().$promise;
+    }
     
     //Thuis will tirgger when server broadcasts message
     //broadcast_msg

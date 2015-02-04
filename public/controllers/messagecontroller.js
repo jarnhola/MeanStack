@@ -4,6 +4,13 @@ module.controller('MessageController',['$scope','$rootScope','SocketFactory','Lo
     $scope.message.messages = [];
     $scope.message.isVisible = false;
     $scope.message.name = LoginFactory.userName;
+    
+    SocketFactory.getMessagesForUser().then(function(data){
+     
+        console.log(data);
+        $scope.message.messages = data.messages[0].messages;
+    });
+    
     $scope.message.new = function(){
         
        $scope.message.isVisible = true;
