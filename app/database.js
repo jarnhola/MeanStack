@@ -11,29 +11,21 @@ mongoose.connect('mongodb://localhost/mean_stack',function(err,success){
     }
 });
 
-//==============================================
-
 var Schema = mongoose.Schema;
 
 var user = new Schema({
     name:{type:String,unique:true},
     password:String,
-    email:String
+    email:String,
+    messages:[{type:Schema.Types.ObjectId,ref:'Message'}]
 });
-
-//==============================================
 
 var message = new Schema({
-   ownae:String,
-    message:[{
-        subject:String,
-        positive_votes:Number,
-        negative_votes:Number,
-        timestamp:Date
-    }]
+    owner:{type:Schema.Types.ObjectId,ref:'User'},
+    subject:{type:String,min:3},
+    text:String,
+    timestamp:Date
 });
-
-//==============================================
 
 user.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
@@ -47,3 +39,4 @@ var User = mongoose.model('User',user);
 var Message = mongoose.model('Message',message);
 
 module.exports.User = User;
+module.exports.Message = Message;

@@ -2,26 +2,26 @@ var module = angular.module('MeanStack',['ngRoute','ngResource','ngAnimate']);
 
 module.config(function($routeProvider){
     
-    /*
+
     $routeProvider.when('/',{
-        templateUrl:'partials/index.html',
+        templateUrl:'partials/login.html',
         controller:'LoginController'
-    });*/
+    });
     
-    $routeProvider.when('/',{
+    $routeProvider.when('/user',{
         templateUrl:'partials/userdata.html',
-        controller:'MessageController'
+        controller:'MessageController',
         //resolve:{loginRequired:loginRequired}
     })
     
     $routeProvider.otherwise({redirectTo: '/'});
 });
 
-function loginRequired($location, $q,$rootScope){
+function loginRequired($location, $q,LoginFactory){
     
     var deferred = $q.defer();
-
-    if(!$rootScope.isAuthenticated) {
+    console.log(LoginFactory.isAuthenticated);
+    if(!LoginFactory.isAuthenticated) {
         deferred.reject()
         $location.path('/');
     } else {

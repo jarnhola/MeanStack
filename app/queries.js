@@ -1,4 +1,5 @@
 var User = require('./database').User;
+var Message = require('./database').Message;
 
 //Use this for store new user for our application
 module.exports.registerUser = function(req,res){
@@ -16,5 +17,18 @@ module.exports.registerUser = function(req,res){
         else{
             res.send({status:'Ok'});
         }
+    });
+}
+
+module.exports.saveMessage = function(data,req){
+    User.findOne({name:req.session.user}).exec(function(err,user){
+        var message = new Message();
+        message.owner = user;
+        message.subject = data.subject;
+        message.text = data.text;
+        message.timestamp = data.timestamp;
+        message.save();
+        user.messages.push(message);
+        user.save();
     });
 }

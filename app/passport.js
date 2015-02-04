@@ -33,7 +33,7 @@ module.exports = function(passport) {
             if(!user.validPassword(password)){
                 return done(null, false, "wrong password"); 
             }
-            console.log('All success');
+            req.session.user = username;
             // All fine continue
             return done(null, user);
         });

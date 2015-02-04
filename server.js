@@ -17,12 +17,16 @@ var app = express();
 //These are needed for sockets
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var request;
+
+app.use(session({secret: 'liirumlaarum', saveUninitialized: true, resave: true}));
 
 //This middleware is called for every request
 app.use(function(req,res,next){
     //Store queries object to request
     req.queries = queries;
     req.passport = passport;
+    request = req;
     //Pass to next middleware
     next();
     
@@ -31,7 +35,6 @@ app.use(function(req,res,next){
 //Point static files to public folder
 app.use('/',express.static(__dirname + '/public'));
 app.use(bodyParser.json());
-app.use(session({secret: 'liirumlaarum', saveUninitialized: true, resave: true,cookie:{maxAge:1000}}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -44,6 +47,7 @@ io.on('connection',function(socket){
     socket.on('new_message',function(data){
         console.log(data);
         //send it to everyone
+        queries.saveMessage(data,request);
         io.emit('broadcast_msg',data);
     });
 });
